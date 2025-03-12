@@ -7,3 +7,5 @@ You think you might have to do to finish this project.
 
 1) read the specs - understand the problem
 2) understand map-based input files
+3) create multiple test maps
+4) add map reader which gets information from the map and sorts it in the form of tiles
