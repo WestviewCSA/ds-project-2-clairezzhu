@@ -12,56 +12,77 @@ public class p2 {
 	}
 	
 	public static void readMap(String filename) {
+		
 		try {
 			File file = new File(filename);
 			Scanner scanner = new Scanner(file);
 			
-			//figure out how many rows, cols, and rooms there are for the map
-			int numRows = scanner.nextInt();
-			int numCols = scanner.nextInt();
+			int numRows  = scanner.nextInt();
+			int numCols  = scanner.nextInt();
 			int numRooms = scanner.nextInt();
+			
 			int rowIndex = 0;
-			scanner.nextLine(); // Consume the leftover newline after reading integers
+			int roomIndex = 0;
+			int colIndex = 0;
 			
 			Tile[][][] tiles = new Tile[numRows][numCols][numRooms];
 			
-			int wX = -1;
-			int wY = -1;
-			
-			int $X = -1;
-			int $Y = -1;
-
 			//process the map!
-			while(scanner.hasNextLine()) {
+			while (scanner.hasNextLine()) {
+				
 				//grab a line (one row of the map)
 				String row = scanner.nextLine();
 				System.out.println(row);
 				
-				//there is data in the row
-				if(row.length() > 0) {
-					//search for each element in the row and make sure it doesn't go out of bounds
-					for(int i = 0; i<numCols && i<row.length(); i++) {
-						char el = row.charAt(i);
-						Tile obj = new Tile(rowIndex, i, el);
+				if (row.length()>0) {
+					
+					for(colIndex = 0; colIndex < numCols && colIndex < row.length(); colIndex++) {
 						
-						//find the (x,y) coordinates of the "W"
-						if(obj.getType() == 'W') {
-							//System.out.println("(" + i + ", " + rowIndex + ")");
-							wX = i;
-							wY = rowIndex;
-						}
+						char el = row.charAt(colIndex);
+						Tile obj = new Tile(rowIndex, colIndex, el);
+						tiles[rowIndex][colIndex][roomIndex] = new Tile(rowIndex, colIndex, el);
 						
-						if(obj.getType() == '$') {
-							$X = i;
-							$Y = rowIndex;
-						}
+						System.out.println("Tile at (" + tiles[rowIndex][colIndex][roomIndex].getRow()
+								+ ", " + tiles[rowIndex][colIndex][roomIndex].getCol() + ", "
+								+ tiles[rowIndex][colIndex][roomIndex].getType() + ")");
+						
 					}
+					
 					rowIndex++;
 				}
 			}
-		}catch (FileNotFoundException e) {
+			
+		}catch (FileNotFoundException e){
 			System.out.println(e);
 		}
+
+					
+					
+					//search for each element in the row and make sure it doesn't go out of bounds
+//					for(int i = 0; i<numCols && i<row.length(); i++) {
+//						char el = row.charAt(i);
+//						Tile obj = new Tile(rowIndex, i, el);
+//						tiles[rowIndex][i][roomIndex] = obj;
+//						
+//						//find the (x,y) coordinates of the "W"
+//						if(obj.getType() == 'W') {
+//							//System.out.println("(" + i + ", " + rowIndex + ")");
+//							wX = i;
+//							wY = rowIndex;
+//						}
+//						
+//						if(obj.getType() == '$') {
+//							$X = i;
+//							$Y = rowIndex;
+//						}
+//						
+//						if(obj.getType() == '|') {
+//							if(!roomIncremented) {
+//								roomIndex++;
+//								roomIncremented = true;
+//							}
+//						}
+//						System.out.println(tiles);
 	}
 
 }
