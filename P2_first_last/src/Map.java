@@ -2,9 +2,9 @@
 public class Map {
 	private Tile[][] map;
 	
-	char[][] maze;
+	char[][] maze; 
 	int rows, cols;
-	Tile start, goal;
+	Tile start, goal; 
 	
 	//initalize the values for the maps
 	public Map(int rows, int cols) {

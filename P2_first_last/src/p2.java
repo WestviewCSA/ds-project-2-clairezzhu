@@ -23,8 +23,8 @@ public class p2 {
 			
 			int rowIndex = 0;
 			int roomIndex = 0;
-			int colIndex = 0;
 			
+			//initalize the tile array
 			Tile[][][] tiles = new Tile[numRows][numCols][numRooms];
 			
 			//process the map!
@@ -34,23 +34,39 @@ public class p2 {
 				String row = scanner.nextLine();
 				System.out.println(row);
 				
+				//only run if the line is not empty
 				if (row.length()>0) {
 					
-					for(colIndex = 0; colIndex < numCols && colIndex < row.length(); colIndex++) {
-						
-						char el = row.charAt(colIndex);
-						Tile obj = new Tile(rowIndex, colIndex, el);
-						tiles[rowIndex][colIndex][roomIndex] = new Tile(rowIndex, colIndex, el);
-						
-						System.out.println("Tile at (" + tiles[rowIndex][colIndex][roomIndex].getRow()
-								+ ", " + tiles[rowIndex][colIndex][roomIndex].getCol() + ", "
-								+ tiles[rowIndex][colIndex][roomIndex].getType() + ")");
-						
-					}
-					
-					rowIndex++;
-				}
+					for (int colIndex = 0; colIndex < numCols && colIndex < row.length(); colIndex++) {
+	                    char el = row.charAt(colIndex);
+	                    
+	                    // Create a new tile for each character
+	                    tiles[rowIndex][colIndex][roomIndex] = new Tile(rowIndex, colIndex, el);
+	                    
+	                    // Print information about the current tile (for debugging)
+	                    System.out.println("Tile at (" + rowIndex + ", " + colIndex + ", " + roomIndex + "): " + el);
+
+	                    // Handle room change if we encounter the '|' character
+	                    if (el == '|') {
+	                        roomIndex++;
+	                        if (roomIndex >= numRooms) {
+	                            roomIndex = numRooms - 1;  // Ensure room index doesn't go out of bounds
+	                        }
+	                    }
+	                }
+	                
+	                rowIndex++;  // Move to the next row
+	            }
+
+	            // After reading all the rows, check if the map dimensions match
+	            if (rowIndex != numRows) {
+	                System.out.println("Warning: The number of rows in the map does not match the expected number of rows.");
+	            }
+	            
+	            // Close the scanner to avoid resource leaks
+	            scanner.close();
 			}
+			
 			
 		}catch (FileNotFoundException e){
 			System.out.println(e);
@@ -83,6 +99,31 @@ public class p2 {
 //							}
 //						}
 //						System.out.println(tiles);
+	}
+
+	//add the error messages
+	class IllegalCommandLineInputsException extends Exception {
+	    public IllegalCommandLineInputsException(String message) {
+	        super(message);
+	    }
+	}
+
+	class IllegalMapCharacterException extends Exception {
+	    public IllegalMapCharacterException(String message) {
+	        super(message);
+	    }
+	}
+
+	class IncompleteMapException extends Exception {
+	    public IncompleteMapException(String message) {
+	        super(message);
+	    }
+	}
+
+	class IncorrectMapFormatException extends Exception {
+	    public IncorrectMapFormatException(String message) {
+	        super(message);
+	    }
 	}
 
 }
