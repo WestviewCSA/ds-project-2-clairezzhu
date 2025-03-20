@@ -3,10 +3,94 @@ Due: 3/12/25 11:50pm
 
 After reading the specs, start populating a list of things 
 You think you might have to do to finish this project.
-
-
 1) read the specs - understand the problem
 2) understand map-based input files
 3) create multiple test maps
 4) add map reader which gets information from the map and sorts it in the form of tiles
 5) add the stack, queue, and optimal ways
+
+.
+.
+.
+for myself:
+
+1. core components
+- map representation
+	* store the maze as a 2D character array for text-based input files
+		~test_01, test_02, test_03, test_04, test_05
+	* for coordinate-based input, use a dictionary or list of objects storing tile types and locations
+	* keep track of walkable paths(.), walls(@), starting position(W), destination($), and walkways(|)
+
+- map rules
+	* only move up, down, left, right (no diagonals)
+	* if a solution does not exist (there is no possible way to reach the coin), print "The Wolverine Store is closed"
+	* if a walkway exists, the Wolverine will move to the next maze if the diamond wasn't found yet
+	* no backtracking or looping in the paths (unless it's the extra credit)
+
+- data structures
+	* queue (BFS-based approach): finds a valid path using breadth-first search
+	* stack (DFS-based approach): finds a valid path using depth-first search
+	* most ooptimal pathfinding: finds the shortest path efficiently
+	* visited set to keep track of explored tiles and prevent loops
+	
+
+2. classes
+- tile class
+- map class
+- main class (p2 class)
+
+
+3. algorithms
+- queue-based (BFS)
+	1) enqueue the Wolverine's position
+	2) while the queue isn’t empty:
+		* dequeue the current tile
+		* if it's $, reconstruct the path
+		* otherwise, enqueue unvisited neighboring tiles
+	3) stop when $ is found
+	4) mark the path in the maze
+	
+- stack-based (DFS)
+	1) push Wolverine’s position onto the stack
+	2) while the stack isn’t empty:
+		* pop the current tile
+		* if it's $, reconstruct the path
+		* otherwise, push unvisited neighboring tiles
+	3) stop when $ is found
+	4) mark the path in the maze
+	
+- most optimal path
+	1) tbd
+
+	
+4. errors
+Errors to Check For:
+- In the text-map format, you should check for:
+	* illegal characters
+	* incomplete maps (not enough characters/lines or not enough lines)
+	* files that don't start with a pair of positive numbers as the first line
+- In the coordinate-based format, you should check for:
+	* illegal characters in the first column
+	* coordinates that don't fit inside the maze
+	* files that don't start with a pair of positive numbers as the first line
+- Not having exactly one of --Stack, --Queue, or --Opt switches set
+	* In all cases, throw the appropriate exception described in the Exceptions section
+
+Errors Not to Check For:
+- In the text-map format, ignore all extra characters on a given line, or lines below the last line needed
+- In the coordinate-based format, assume the character format is correct, i.e., char int int. However, you do need to check if the character and integers are valid
+
+Exceptions:
+You must write and use the User-Defined-Exceptions below which are the errors. 
+- IllegalCommandLineInputsException: Missing required command line input argument for the program
+- IllegalMapCharacterException: Illegal characters on a map
+- IncompleteMapException: Incomplete map files such as not enough characters for a given row or too few rows
+- IncorrectMapFormatException: Incorrectly formatted maps such as not having a pair of positive numbers in the first line
+
+
+5. output formatting
+- text-based output: print maze with + path
+- coordinate-based output: print +row col level for each step
+- print runtime if --time is enabled
+
+
