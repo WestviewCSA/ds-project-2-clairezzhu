@@ -121,7 +121,7 @@ public class p2 {
 //						System.out.println(tiles);
 	}
 	
-	private static boolean solveWithQueue(Map map) {
+	private static boolean Queue(Map map) {
         Queue<Tile> queue = new LinkedList<>();
         queue.add(map.start);
         Set<String> visited = new HashSet<>();
