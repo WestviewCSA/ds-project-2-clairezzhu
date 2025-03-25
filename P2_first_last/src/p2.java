@@ -151,6 +151,38 @@ public class p2 {
         }
         return false;
     }
+	
+	private static boolean Stack(Map map) {
+        Stack<Tile> stack = new Stack<>();
+        stack.push(map.start);
+        Set<String> visited = new HashSet<>();
+        visited.add(map.start.row + "," + map.start.col + "," + map.start.level);
+
+        int[] dr = {-1, 1, 0, 0, 0, 0};
+        int[] dc = {0, 0, -1, 1, 0, 0};
+        int[] dl = {0, 0, 0, 0, -1, 1};
+
+        while (!stack.isEmpty()) {
+            Tile current = stack.pop();
+            if (current.row == map.goal.row && current.col == map.goal.col && current.level == map.goal.level) {
+                return true;
+            }
+
+            for (int i = 0; i < 6; i++) {
+                int newRow = current.row + dr[i];
+                int newCol = current.col + dc[i];
+                int newLevel = current.level + dl[i];
+                String key = newRow + "," + newCol + "," + newLevel;
+
+                if (newRow >= 0 && newRow < map.rows && newCol >= 0 && newCol < map.cols && newLevel >= 0 && newLevel < map.levels && map.getTile(newLevel, newRow, newCol) != '#' && !visited.contains(key)) {
+                    visited.add(key);
+                    stack.push(new Tile(newRow, newCol, newLevel, map.getTile(newLevel, newRow, newCol)));
+                }
+            }
+        }
+        return false;
+    }
+
 
 	//add the error messages
 	class IllegalCommandLineInputsException extends Exception {
