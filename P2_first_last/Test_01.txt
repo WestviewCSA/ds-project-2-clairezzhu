@@ -1,0 +1,13 @@
+5 4 1
+@@@@
+W.@$
+@...
+...@
+@..@
+
+
+
+#1 easy map
+- 1 room
+- simple
+- reachable coin
