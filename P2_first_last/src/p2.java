@@ -80,28 +80,6 @@ public class p2{
 		}
 
 	}
-
-	public static void run() {
-		
-		long startTime = System.nanoTime(); //start timer
-		
-		//call stack/queue method for each map
-		Position prevPosition = new Position();
-	    for (int roomId = 0; roomId < map.length; roomId++) {
-			if ( needStack ) {
-				prevPosition = findPathByStack(roomId, prevPosition); //find path by stack
-			}
-			if ( needQueue || needOptimal ) {
-				prevPosition = findPathByQueue(roomId, prevPosition); //find path by queue
-			}
-			if ( !prevPosition.isValid()) { //check if it's room #1
-				break;
-			}
-	    }
-		
-		long endTime = System.nanoTime();
-		time += endTime - startTime; //end timer
-	}
 	
 	public static void printMap(String[][][] map) {
 		//print each character in map
@@ -260,7 +238,7 @@ public class p2{
 	}
 
 	public static Position findPathByQueue(int roomId, Position prevPosition) { //bfs
-	    MazeQueue queue = new MazeQueue();
+	    QueueP2 queue = new QueueP2();
 	    String[][] room = map[roomId];
 	    boolean[][] visited = new boolean[room.length][room[0].length];
 	
@@ -304,7 +282,7 @@ public class p2{
 	}
 	
 	public static Position findPathByStack(int roomId, Position prevPosition) { //dfs
-		MazeStack stack = new MazeStack();
+		StackP2 stack = new StackP2();
 	    String[][] room = map[roomId];
 	    boolean[][] visited = new boolean[room.length][room[0].length];
 	
@@ -377,16 +355,9 @@ public class p2{
 	    
 	}
 	
-	public static void printHelpMessage() { //when help arg is called
-	    System.out.println("options:");
-	    System.out.println("-stack\t\tuse the stack-based approach for maze solving");
-	    System.out.println("-queue\t\tuse the queue-based approach for maze solving");
-	    System.out.println("-opt\t\tfind the shortest path using an optimal algorithm");
-	    System.out.println("-time\t\tprint the runtime of the program");
-	    System.out.println("-incoordinate\tread the input file in the coordinate-based system");
-	    System.out.println("-outcoordinate\twrite the output file in the coordinate-based system");
-	    System.out.println("-findall\tfind all the coins in the maze");
-	    System.out.println("-help\t\tdisplay this help message and exit");
+	//exception messages!!
+	public static void printHelpMessage() {
+	    System.out.println("choose what method you want to use");
 	}
 
 	public static class IllegalCommandLineInputsException extends Exception {
@@ -401,7 +372,6 @@ public class p2{
         }
     }
 
-    // Static class IllegalMapCharacterException
     public static class IllegalMapCharacterException extends Exception {
         public IllegalMapCharacterException() {
             super("Illegal map character detected.");
@@ -411,7 +381,7 @@ public class p2{
             for (String[][] room : map) {
                 for (String[] row : room) {
                     for (String obj : row) {
-                        if (!obj.matches("[.@W$| ]")) { // Improved readability using regex
+                        if (!obj.matches("[.@W$| ]")) {
                             throw new IllegalMapCharacterException();
                         }
                     }
@@ -420,7 +390,6 @@ public class p2{
         }
     }
 
-    // Static class IncompleteMapException
     public static class IncompleteMapException extends Exception {
         public IncompleteMapException() {
             super("Incomplete map detected.");
@@ -439,7 +408,6 @@ public class p2{
         }
     }
 
-    // Static class IncorrectMapFormatException
     public static class IncorrectMapFormatException extends Exception {
         public IncorrectMapFormatException() {
             super("Incorrect map format.");
@@ -451,7 +419,4 @@ public class p2{
             }
         }
     }
-
-
-
 }

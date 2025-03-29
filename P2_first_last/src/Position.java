@@ -41,7 +41,7 @@ public class Position {
     }
 	
 	//queue enqueue
-	public void enqueueNeighbors(MazeQueue queue, String[][] map, boolean[][] visited) {
+	public void enqueueNeighbors(QueueP2 queue, String[][] map, boolean[][] visited) {
         int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; //north, south, west, east
 
         for (int[] dir : directions) {
@@ -59,7 +59,7 @@ public class Position {
     }
 	
 	//stack push
-	public void pushNeighbors(MazeStack stack, String[][] map, boolean[][] visited) {
+	public void pushNeighbors(StackP2 stack, String[][] map, boolean[][] visited) {
 		int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; //north, south, west, east
 
         for (int[] dir : directions) {
