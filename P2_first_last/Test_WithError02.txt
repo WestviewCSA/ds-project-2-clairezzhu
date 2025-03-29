@@ -1,0 +1,9 @@
+5 8 1
+@@@@@@@
+@W....@
+@.@@..@
+@....$@
+@@@@@@@
+
+
+error: wrong dimensions (should be 7 instead of 8)
