@@ -1,28 +1,28 @@
-import java.util.ArrayList;
+import java.util.Stack;
+
 
 public class MazeStack {
-    private ArrayList<Tile> stack;
+    
+	public Stack<Position> stack; //stack to store the optimal path
 
-    // Constructor
-    public MazeStack() {
-        stack = new ArrayList<>();
-    }
-
-    // Push a tile onto the stack
-    public void push(Tile tile) {
-        stack.add(tile);
-    }
-
-    // Pop a tile from the stack
-    public Tile pop() {
-        if (stack.isEmpty()) {
-            return null;
-        }
-        return stack.remove(stack.size() - 1);
-    }
-
-    // Check if the stack is empty
-    public boolean isEmpty() {
-        return stack.isEmpty();
-    }
+	public MazeStack() {
+		stack = new Stack<>();
+	}
+	
+	public void push(Position pos) {
+		stack.push(pos);
+	}
+	
+	public Position pop() {
+		if (!isEmpty()) {
+			return stack.pop();
+		}
+		return null;
+	}
+	
+	public boolean isEmpty() {
+		return stack.isEmpty();
+	}
+	
+	
 }
